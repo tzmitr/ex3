@@ -1,0 +1,36 @@
+﻿<table>
+    <tr>
+        <th>Id</th>
+        <th>Имя</th>
+        <th>Краткое описание</th>
+    </tr>
+    <?php foreach ($page->items as $item) { ?>
+    <tr>
+        <td><?php echo $item->id; ?></td>
+        <td><?php echo $item->name; ?></td>
+        <td><?php echo $item->short_desc; ?></td>
+    </tr>
+    <?php } ?>
+</table>
+
+<a href="/news?limit=<?= $limit; ?>"><<</a>
+<a href="/news?limit=<?= $limit; ?>&page=<?= $page->before; ?>"><</a>
+<?php
+$i = 0;
+while ($i++<11) {
+    $curPage = $page->current + $i - 6;
+    if ($curPage > 0 && $curPage <= $page->total_pages) {
+        echo '<a href="/news?limit='.$limit.'&page='.$curPage.'">'.$curPage.' </a>';
+    }
+}
+?>
+<a href="/news?limit=<?= $limit; ?>&page=<?= $page->next; ?>">></a>
+<a href="/news?limit=<?= $limit; ?>&page=<?= $page->last; ?>">>></a>
+
+<?php 
+echo "Вы на странице ", $page->current, " из ", $page->total_pages; 
+?>
+ Новостей на странице:
+<a href="/news?limit=5&page=<?= $page->current; ?>">5</a>
+<a href="/news?limit=10&page=<?= $page->current; ?>"> 10</a>
+
